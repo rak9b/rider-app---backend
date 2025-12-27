@@ -52,6 +52,51 @@ Access role-protected dashboards (Login required):
 
 ---
 
+## 📂 Folder Structure
+
+```
+.
+├── backend                 # Node.js/Express service
+│   ├── src
+│   │   ├── controllers     # Request handlers
+│   │   ├── middleware      # Auth & Error middlewares
+│   │   ├── models          # Mongoose schemas
+│   │   ├── routes          # API endpoints
+│   │   └── utils           # Helper functions (JWT, etc.)
+│   └── tsconfig.json       # TypeScript configuration
+├── frontend                # React/Vite service
+│   ├── src
+│   │   ├── components      # UI Components (Glassmorphism)
+│   │   ├── pages           # Router Views (Dashboards, Auth)
+│   │   ├── store           # Global state (Redux, RTK Query)
+│   │   └── index.css       # Global styles (Tailwind)
+│   └── tailwind.config.js  # Design tokens & theme
+└── README.md               # Master documentation
+```
+
+---
+
+## 🏗️ Auth & System Architecture
+
+```mermaid
+graph TD
+    User((User)) -->|Access| Frontend[React Frontend - Vercel]
+    Frontend -->|API Request + Bearer Token| Backend[Express Backend - Render]
+    Backend -->|Query/Update| DB[(MongoDB Atlas)]
+    
+    subgraph "Security Layer"
+        Backend -->|Verify Token| JWT[JWT Validation]
+        Backend -->|Encrypt| Hashing[bcrypt Hashing]
+    end
+    
+    subgraph "Ride & Safety Flow"
+        Backend -->|Manage| Rides[Ride Lifecycle]
+        Backend -->|Trigger| Safety[SOS / Emergency System]
+    end
+```
+
+---
+
 ## 🏁 Getting Started
 
 ### Prerequisites
